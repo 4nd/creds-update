@@ -25,10 +25,6 @@ func main() {
 		}
 	}(zipArchive)
 
-	//for _, file := range zipArchive.File {
-	//	fmt.Println(file.Name)
-	//}
-
 	reader, openError := zipArchive.Open("export.data")
 	if openError != nil {
 		log.Fatal(openError)
