@@ -1,8 +1,8 @@
 package handlers
 
 import (
+	"creds-update/resources"
 	"database/sql"
-	"html/template"
 	"log"
 	"net/http"
 	"os"
@@ -20,7 +20,7 @@ func NewRouteHandler(db *sql.DB) *RouteHandler {
 
 func (h *RouteHandler) render(
 	resp http.ResponseWriter,
-	view *template.Template,
+	viewFile string,
 	data map[string]interface{},
 ) {
 	if viteHot() == true {
@@ -29,6 +29,13 @@ func (h *RouteHandler) render(
 		data["viteHot"] = false
 		data["styles"], data["scripts"] = ParseManifest()
 	}
+
+	view, ok := resources.Views[viewFile]
+	if !ok {
+		log.Printf("view %s not found", viewFile)
+		return
+	}
+
 	if err := view.Execute(resp, data); err != nil {
 		log.Println(err)
 	}
