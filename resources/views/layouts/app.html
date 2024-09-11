@@ -1,0 +1,17 @@
+{{ define "app" }}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{{ block "title" . }}Default Title{{ end }}</title>
+        {{ template "styles" . }}
+    </head>
+    <body>
+    {{ .viteHot }}
+    {{ block "body" . }}
+    {{ end }}
+
+    {{ template "scripts" . }}
+    </body>
+    </html>
+{{ end }}

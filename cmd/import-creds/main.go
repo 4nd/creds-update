@@ -2,11 +2,11 @@ package main
 
 import (
 	"archive/zip"
+	"creds-update/config"
+	"creds-update/models"
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"importCreds/config"
-	"importCreds/models"
 	"log"
 	"net/mail"
 )
