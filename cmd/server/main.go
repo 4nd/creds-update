@@ -21,6 +21,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("%v", resources.Views)
+
 	http.ListenAndServe(":3000", router)
 }
