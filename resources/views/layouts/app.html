@@ -7,9 +7,10 @@
         {{ template "styles" . }}
     </head>
     <body>
+    <div class="container mx-auto">
     {{ block "body" . }}
     {{ end }}
-
+    </div>
     {{ template "scripts" . }}
     </body>
     </html>
