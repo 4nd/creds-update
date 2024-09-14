@@ -18,7 +18,7 @@ func NewRouteHandler(db *sql.DB) *RouteHandler {
 	}
 }
 
-func (h *RouteHandler) render(
+func (h *RouteHandler) renderTemplate(
 	resp http.ResponseWriter,
 	viewFile string,
 	data map[string]interface{},

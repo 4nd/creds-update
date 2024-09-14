@@ -2,21 +2,39 @@
 {{ define "title" }}Creds Review{{ end }}
 {{ define "body"}}
     <h1 class="p-6">Creds Review!</h1>
-    <table class="table-auto w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+    <table class="table-auto max-w-full w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
             <th scope="col" class="text-left px-6 py-3">Name</th>
             <th scope="col" class="text-left px-6 py=3">URL</th>
+            <th scope="col" class="text-left px-6 py=3">Username</th>
+            <th scope="col" class="text-left px-6 py=3">&nbsp;</th>
         </tr>
         </thead>
         <tbody>
         {{ range $credential := .credentials}}
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {{$credential.Name}}
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                x-data="{
+                    id: {{ $credential.Id }},
+                    completedAt: {{ if $credential.CompletedAt }} '{{ $credential.CompletedAt }}' {{ else }} null {{ end }}
+                }">
+                <th scope="row"
+                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-wrap max-w-64">
+                    {{$credential.Name}}
                 </th>
-                <td class="px-6 py-4">
-                    {{ $credential.Url }}
+                <td class="px-6 py-4 truncate text-wrap max-w-64">
+                    <a href="{{ $credential.Url }}" target="_blank"
+                       class="block hover:underline">{{ $credential.Url }}</a>
+                </td>
+                <td class="px-6 py-4 ">
+                    {{$credential.Username }}
+                </td>
+                <td class="px-6 py-4 text-center">
+                    <span x-show="completedAt" x-text="completedAt"></span>
+                    <button class="btn-primary"
+                            x-show="!completedAt"
+                            x-on:click="completedAt = completeCredential(id)"
+                    >Done</button>
                 </td>
             </tr>
         {{ end }}

@@ -24,6 +24,7 @@ func GetRoutes(h *handlers.RouteHandler) chi.Router {
 
 	r.Route("/creds", func(r chi.Router) {
 		r.Get("/", h.ListCreds)
+		r.Post("/complete", h.CompleteCred)
 	})
 
 	return r
